@@ -1,0 +1,156 @@
+:root {
+    --primary-color: #00b7af;
+    --dark-color: #10181f;
+    --light-color: #ffffff;
+    --secondary-color: #6a7071;
+    --depth-color: #008f88;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--dark-color);
+    color: var(--light-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+.app-container {
+    text-align: center;
+    width: 100%;
+    max-width: 600px;
+    padding: 20px;
+}
+
+header h3 {
+    margin-bottom: 40px;
+    font-size: 2rem;
+    color: var(--primary-color);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.counter-display {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 50px;
+    perspective: 1000px;
+}
+
+/* 3D Digit Styling */
+.digit-container {
+    position: relative;
+    width: 80px;
+    height: 120px;
+    transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.digit-face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: var(--primary-color);
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 5rem;
+    font-weight: bold;
+    color: var(--dark-color);
+    backface-visibility: hidden;
+    box-shadow:
+        0 5px 15px rgba(0, 0, 0, 0.5),
+        inset 0 0 10px rgba(255, 255, 255, 0.2);
+}
+
+/* Creating a 3D block look */
+.digit-face::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 100%;
+    height: 10px;
+    background: var(--depth-color);
+    transform: rotateX(-90deg);
+    transform-origin: bottom;
+}
+
+.digit-face::before {
+    content: '';
+    position: absolute;
+    right: -10px;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--depth-color);
+    transform: rotateY(90deg);
+    transform-origin: right;
+    width: 10px;
+}
+
+.controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+input[type="number"] {
+    background: #1a2630;
+    border: 2px solid var(--primary-color);
+    border-radius: 5px;
+    color: var(--light-color);
+    padding: 12px 20px;
+    font-size: 1.2rem;
+    width: 200px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+input[type="number"]:focus {
+    border-color: var(--light-color);
+}
+
+button {
+    background: var(--primary-color);
+    color: var(--dark-color);
+    border: none;
+    border-radius: 5px;
+    padding: 12px 30px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.3s;
+    text-transform: uppercase;
+}
+
+button:hover {
+    background-color: var(--light-color);
+    transform: scale(1.05);
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+/* Animation classes */
+.digit-flip {
+    animation: flip 0.6s ease-in-out;
+}
+
+@keyframes flip {
+    0% { transform: rotateX(0); }
+    50% { transform: rotateX(-180deg); }
+    100% { transform: rotateX(-360deg); }
+}
